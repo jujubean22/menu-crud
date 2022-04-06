@@ -22,7 +22,7 @@ const AddEdit = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fireDb.child("costs").on("value", (snapshot) => {
+    fireDb.child("menu_item").on("value", (snapshot) => {
       if (snapshot.val() !== null) {
         setData({ ...snapshot.val() });
       } else {
@@ -58,7 +58,7 @@ const AddEdit = () => {
       toast.error("Please provide value in each input field");
     } else {
       if (!id) {
-        fireDb.child("costs").push(state, (err) => {
+        fireDb.child("menu_item").push(state, (err) => {
           if (err) {
             toast.error(err);
           } else {
@@ -66,7 +66,7 @@ const AddEdit = () => {
           }
         });
       } else {
-        fireDb.child(`costs/${id}`).set(state, (err) => {
+        fireDb.child(`menu_item/${id}`).set(state, (err) => {
           if (err) {
             toast.error(err);
           } else {
@@ -75,7 +75,7 @@ const AddEdit = () => {
         });
       }
 
-      setTimeout(() => history.push("/"), 500);
+      setTimeout(() => history("/"), 500);
     }
   };
   return (
